@@ -61,7 +61,7 @@ module.exports.typeOf = typeOf;
  * first: Designed to return a specific number of items from a collection
  * 
  * @param {array} array: the collection over which to iterate
- * @param {number} number: the number to search for in the collection
+ * @param {number} number: the number of elements to return at the start of the array
  * 
  * @return {array} collection: if array param is not an array, return an empty
  * array. If number param is greater than array.length return the full array. 
@@ -95,7 +95,7 @@ module.exports.first = first;
  * last: Designed to return a specific number of items from a collection
  * 
  * @param {array} array: the collection over which to iterate
- * @param {number} number: the number to search for in the collection
+ * @param {number} number: the number of elements to return at the end of the array
  * 
  * @return {array} array: if array param is not an array, return an empty
  * array. If number param is greater than array.length return last item in array. 
@@ -323,7 +323,7 @@ module.exports.map = map;
  * element in array>
  * 
  * @param {array} array: the collection over which to iterate
- * @param {function} func: the function to call for each value in the collection
+ * @param {any value} preoperty: the properties to return from the collection
  * 
  * @return {array} collection: returns an array of values that had the specific
  * property searched for.
@@ -421,9 +421,9 @@ module.exports.some = some;
  * 
  * @param {array} array: the collection over which to iterate
  * @param {function} func: the function to call for each value in the collection
- * @param {counter or null} seed: used to count
+ * @param {counter or null} seed: used to count or set return value
  * 
- * @return {number} value: returns new seed value 
+ * @return {any value} value: returns the final 'previous result' value 
  */
  
 function reduce(array, func, seed) {
