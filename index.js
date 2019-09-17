@@ -19,7 +19,7 @@ function each(collection, func) {
             func(collection[key], key, collection);
         }
     }
-};
+}
 module.exports.each = each;
 
 /**
@@ -31,9 +31,8 @@ module.exports.each = each;
  */
  
 function identity(value){
-    //returns the value unchanged
     return value;
-};
+}
 
 /**
  * typeOf: Designed to take any value and return <value> as a string 
@@ -44,9 +43,6 @@ function identity(value){
  */
  
 function typeOf(value){
-//takes any value
-_.typeOf = function(value){
-    //return type of <value> as a string
     if (Array.isArray(value) === true){
         return 'array';
     }   else if (value === null){
@@ -54,7 +50,7 @@ _.typeOf = function(value){
     }   else {
         return typeof value;
     }
-};
+}
 module.exports.typeOf = typeOf;
 
 /**
@@ -70,25 +66,22 @@ module.exports.typeOf = typeOf;
  
 function first(array, number){
    var arr = [];
-   //if array is not array, return an empty array
    if(!Array.isArray(array)){
        return arr;
    } 
-   //if number is NaN or not given, return first value in the array
    else if(number === undefined ||typeof number !== 'number'){
        return array[0];
    } 
-   //if number is larger than array length, return the whole array
    else if (number > array.length){
        return array;
    } 
-   //return the <number> items in the array
    else {
        for (var i = 0; i < number; i++){
-           arr.push(array[i])
-       };return arr;
+           arr.push(array[i]);
+       }
+       return arr;
    }
-};
+}
 module.exports.first = first;
 
 /**
@@ -104,28 +97,25 @@ module.exports.first = first;
  
 function last(array, number){
        var arr = [];
-   //if array is not array, return an empty array
    if(!Array.isArray(array)){
        return arr;
    } 
-   //if number is NaN or not given, return last value in the array
    else if(number === undefined ||typeof number !== 'number'){
        return array[array.length-1];
    } 
-   //if number is larger than array length, return the whole array
    else if (number > array.length){
        return array;
    } 
    else if (number < 0){
        return arr;
    }
-   //return the <number> items in the array
    else {
        for (var i = array.length-1; i >= number - 1 ; i--){
-           arr.unshift(array[i])
-       };return arr;
+           arr.unshift(array[i]);
+       }
+       return arr;
    }
-};
+}
 module.exports.last = last;
 
 /**
@@ -140,14 +130,12 @@ module.exports.last = last;
  */
 
 function indexOf(array, value){
-    //return the index of the array that the value is found
     for (var i = 0; i < array.length; i++){
         if (array[i] === value){
             return i;
         } 
-        //return -1 if value isn't found
     }  return -1;
-};
+}
 module.exports.indexOf = indexOf;
 
 /**
@@ -160,34 +148,9 @@ module.exports.indexOf = indexOf;
  */
  
 function contains(array, value){
-    //if value is in array, return true, otherwise return false
     return array.includes(value) ? true : false;
-};
+}
 module.exports.contains = contains;
-
-/**
- * each: Designed to call a function for each value in a collection
- * 
- * @param {array or object} collection: the collection over which to iterate
- * @param {function} func: the function to call for each value in the collection
- */
- 
-function each(collection, func){
-    //if collection is an array
-    //call func with arguments of each element, its index, and <collection>
-    if (Array.isArray(collection)){
-        for (var i = 0; i < collection.length; i++){
-            func(collection[i], i, collection);
-        }
-    } else {
-        //if collection is an object
-        //call func with arguments of each element, it's key, and <collection>
-        for (var key in collection){
-            func(collection[key], key, collection);
-        }
-    }
-};
-module.exports.each = each;
 
 /**
  * unique: Designed to return a new array with all duplicate values removed
@@ -198,15 +161,14 @@ module.exports.each = each;
  */
  
 function unique(array){
-    //return the array with all duplicates removed
     var result = [];
     for (var i = 0; i < array.length; i++){
-   if ( _.indexOf(result, array[i]) === -1){
-       result.push(array[i])
+   if ( indexOf(result, array[i]) === -1){
+       result.push(array[i]);
    }
     }
    return result;
-};
+}
 module.exports.unique = unique;
 
 /**
@@ -222,15 +184,12 @@ module.exports.unique = unique;
  
 function filter(array, func){
     var newArray = [];
-    //call func for each element in array
-    //func takes arguments of the element, it's index, and <array>
     for (var i = 0; i < array.length; i++){
        if (func(array[i], i, array)){
-           //return new array for each value func passes true
            newArray.push(array[i]);
        }
     } return newArray;
-};
+}
 module.exports.filter = filter;
 
 /**
@@ -245,12 +204,10 @@ module.exports.filter = filter;
  */
  
  function reject(array, func){
-     //call func for each element in array
-   return _.filter(array, function(element, index, array) {
-       //return new array of elements for which func returns false
+   return filter(array, function(element, index, array) {
    return !func(element, index, array);
  });
-};
+}
 
 module.exports.reject = reject;
 
@@ -270,22 +227,17 @@ function partition(array, func){
     var newArrayTrue = [];
     var newArrayFalse = [];
     var newArrays = [];
-    //call func for each element in array
-    //actiom takes arguments of the element, it's index, <array>
     for (var i = 0; i < array.length; i++){
        if (func(array[i], i, array)){
-           //return new array for each value func passes true
            newArrayTrue.push(array[i]);
-           //return new array for each value func passes false
        } else if (!func(array[i], i, array)) {
            newArrayFalse.push(array[i]);
        }
     } 
     newArrays.push(newArrayTrue);
     newArrays.push(newArrayFalse);
-    //return array containing both arrays
     return newArrays;
-};
+}
 module.exports.partition = partition;
 
 /**
@@ -300,22 +252,16 @@ module.exports.partition = partition;
 
 function map(collection, func){
     var newArray = [];
-        //if collection is an array
-        //call func with arguments of each element, its index, and <collection>
         if (Array.isArray(collection)){
         for (var i = 0; i < collection.length; i++){
-            //save the return value of each func call in a new array
             newArray.push(func(collection[i], i, collection));
         }
     } else {
-        //if collection is an object
-        //call test with arguments of each element, it's key, and <collection>
         for (var key in collection){
-            //save the return value of each func call in a new array
             newArray.push(func(collection[key], key, collection));
         }
     }   return newArray;
-};
+}
 module.exports.map = map;
 
 /**
@@ -330,11 +276,10 @@ module.exports.map = map;
  */
  
 function pluck(array, property){
-    //return an array containing the value of property for every element in array
     return array.map(function(object) {
     return object[property];
-  })
-};
+  });
+}
 module.exports.pluck = pluck;
 
 /**
@@ -349,31 +294,25 @@ module.exports.pluck = pluck;
  
 function every(collection, func){
     if (func === undefined){ 
-        func = _.identity;
+        func = identity;
     }
-    var booleanArray = []; 
-    //if collection is an object
-    //call action with arguments of each element, it's index, and <collection>
+    var booleanArray = [];
     if (Array.isArray(collection)){
         for (var i = 0; i < collection.length; i++){
             booleanArray.push(func(collection[i], i, collection));
         }
     } else {
-        //if collection is an object
-        //call action with arguments of each element, it's key, and <collection>
         for (var key in collection){
             booleanArray.push(func(collection[key], key, collection));
         }
     } 
-    // if return value for every element is true, return true
-    //otherwise return false
     for (var i = 0; i < booleanArray.length; i++){
         if (booleanArray[i] === false){
             return false;
         }
     }
     return true;
-};
+}
 module.exports.every = every;
 
 /**
@@ -389,31 +328,25 @@ module.exports.every = every;
  
 function some(collection, func){
      if (func === undefined){ 
-        func = _.identity;
+        func = identity;
     }
     var booleanArray = [];
-    //if collection is an object
-    //call action with arguments of each element, it's index, and <collection>
     if (Array.isArray(collection)){
         for (var i = 0; i < collection.length; i++){
             booleanArray.push(func(collection[i], i, collection));
         }
     } else {
-        //if collection is an object
-        //call action with arguments of each element, it's key, and <collection>
         for (var key in collection){
             booleanArray.push(func(collection[key], key, collection));
         }
     } 
-    // if return value for every element is false, return false
-    //otherwise return true
     for (var i = 0; i < booleanArray.length; i++){
         if (booleanArray[i] === true){
             return true;
         }
     }
     return false;
-};
+}
 module.exports.some = some;
 
 /**
@@ -428,23 +361,19 @@ module.exports.some = some;
  
 function reduce(array, func, seed) {
     var prevResult;
-    //Call func for every element in array 
-    //passing the arguments: previous result, element, index
     if (seed !== undefined) {
-        //On the first loop, use seed as the "previous result"
         prevResult = seed;
         for (var i = 0; i < array.length; i++) {
             prevResult = func(prevResult, array[i], i);
         }
     } else {
-        //If no seed was given, use the first value of array as seed and continue to the next element
         prevResult = array[0];
         for (var i = 1; i < array.length; i++) {
             prevResult = func(prevResult, array[i], i);
         }
     }
     return prevResult;
-};
+}
 module.exports.reduce = reduce;
 
 /**
@@ -458,8 +387,7 @@ module.exports.reduce = reduce;
  */
  
 function extend(object, ...object2) {
-    //copy properties from object2 to object
-        Object.assign(object, ...object2)
+        Object.assign(object, ...object2);
         return object;
-};
+}
 module.exports.extened = extend;
